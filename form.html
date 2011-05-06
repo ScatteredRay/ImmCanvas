@@ -1,0 +1,56 @@
+<html>
+<body>
+<canvas id="formcanvas"/>
+<script type="text/javascript">
+
+  function draw_line(ctx, x1, y1, x2, y2) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.closePath();
+      ctx.stroke();
+  }
+
+  var element_draw_fns =
+  {"hlin" :
+  function(elem, ctx) {
+      draw_line(ctx, elem.x, elem.y, elem.x + elem.length, elem.y);
+  },
+  "vlin" :
+  function(elem, ctx) {
+      draw_line(ctx, elem.x, elem.y, elem.x, elem.y + elem.length);
+  },
+  "lwid" :
+  function(elem, ctx) {
+      ctx.lineWidth = elem.width;
+  },
+  "text" :
+  function(elem, ctx) {
+      ctx.fillText(elem.text, elem.x, elem.y);
+  }};
+
+  function draw_pcl(pcl_elements, ctx) {
+  
+      function draw_pcl_element(elem) {
+          element_draw_fns[elem.element](elem, ctx);
+      }
+
+      pcl_elements.forEach(draw_pcl_element);
+  }
+
+  var form = document.getElementById("formcanvas");
+  var ctx = form.getContext("2d");
+
+  var formdata =
+  {"pcl" :
+      [{"element" : "hlin", "x" : 10, "y" : 10, "length" : 40},
+       {"element" : "vlin", "x" : 10, "y" : 10, "length" : 40},
+       {"element" : "lwid", "width" : 4},
+       {"element" : "hlin", "x" : 10, "y" : 40, "length" : 40},
+       {"element" : "text", "x" : 15, "y" : 40, "text" : "Testing"}]};
+
+  draw_pcl(formdata.pcl, ctx);
+
+</script>
+</body>
+</html>
