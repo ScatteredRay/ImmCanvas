@@ -3,10 +3,22 @@
 <canvas id="formcanvas"/>
 <script type="text/javascript">
 
+  function transform_point(p)
+  {
+      return p;
+  }
+
+  function transform_xy(x, y)
+  {
+      return transform_point({"x" : x, "y" : y});
+  }
+
   function draw_line(ctx, x1, y1, x2, y2) {
+      var p1 = transform_xy(x1, y1);
+      var p2 = transform_xy(x2, y2);
       ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
       ctx.closePath();
       ctx.stroke();
   }
@@ -26,7 +38,8 @@
   },
   "text" :
   function(elem, ctx) {
-      ctx.fillText(elem.text, elem.x, elem.y);
+      var p = transform_xy(elem.x, elem.y);
+      ctx.fillText(elem.text, p.x, p.y);
   }};
 
   function draw_pcl(pcl_elements, ctx) {
