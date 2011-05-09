@@ -24,11 +24,11 @@
   }
 
   var element_draw_fns =
-  {"hlin" :
+  {"hline" :
   function(elem, ctx) {
       draw_line(ctx, elem.x, elem.y, elem.x + elem.length, elem.y);
   },
-  "vlin" :
+  "vline" :
   function(elem, ctx) {
       draw_line(ctx, elem.x, elem.y, elem.x, elem.y + elem.length);
   },
@@ -56,10 +56,10 @@
 
   var formdata =
   {"pcl" :
-      [{"element" : "hlin", "x" : 10, "y" : 10, "length" : 40},
-       {"element" : "vlin", "x" : 10, "y" : 10, "length" : 40},
+      [{"element" : "hline", "x" : 10, "y" : 10, "length" : 40},
+       {"element" : "vline", "x" : 10, "y" : 10, "length" : 40},
        {"element" : "lwid", "width" : 4},
-       {"element" : "hlin", "x" : 10, "y" : 40, "length" : 40},
+       {"element" : "hline", "x" : 10, "y" : 40, "length" : 40},
        {"element" : "text", "x" : 15, "y" : 40, "text" : "Testing"}]};
 
   draw_pcl(formdata.pcl, ctx);
