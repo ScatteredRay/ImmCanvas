@@ -3,9 +3,32 @@
 <canvas id="formcanvas" width="1024" height="768"/>
 <script type="text/javascript">
 
+  // Unsure of this constant.
+  var PtPIn = 72.0;
+  var CmPIn = 2.54;
+
+  var PPI = 96.0;
+
+  var HalfLineWidthCm = 0.0;
+
+  function transform_pt_to_px(s)
+  {
+      return (s / PtPIn) * PPI;
+  }
+
+  function transform_width_to_px(s)
+  {
+      return (s/300.0) * PPI;
+  }
+
+  function transform_width_to_cm(s)
+  {
+      return (s/300.0) * CmPIn;
+  }
+
   function transform_point(p)
   {
-      return {"x" : p.x * 40, "y" : p.y * 40};
+      return {"x" : (p.x / CmPIn) * PPI, "y" : (p.y / CmPIn) * PPI};
   }
 
   function transform_xy(x, y)
@@ -26,15 +49,17 @@
   var element_draw_fns =
   {"hline" :
   function(elem, ctx) {
-      draw_line(ctx, elem.x, elem.y, elem.x + elem.length, elem.y);
+      draw_line(ctx, elem.x, elem.y + HalfLineWidth, elem.x + elem.length, elem.y + HalfLineWidth);
   },
   "vline" :
   function(elem, ctx) {
-      draw_line(ctx, elem.x, elem.y, elem.x, elem.y + elem.length);
+      draw_line(ctx, elem.x + HalfLineWidth, elem.y, elem.x + HalfLineWidth, elem.y + elem.length);
   },
   "lwid" :
   function(elem, ctx) {
-      ctx.lineWidth = elem.width;
+      width = transform_width_to_px(elem.width);
+      ctx.lineWidth = width;
+      HalfLineWidth = transform_width_to_cm(elem.width)/2
   },
   "text" :
   function(elem, ctx) {
@@ -44,7 +69,7 @@
   "font" :
   function(elem, ctx) {
       ctx.font = elem.modifiers + " " +
-                 elem.size + "pt " +
+                 transform_pt_to_px(elem.size) + "px " +
                  elem.family;
   }};
 
