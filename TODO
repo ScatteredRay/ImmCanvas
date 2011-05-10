@@ -1,0 +1,4 @@
+* Use Javascript to choose canvas size based on PPI & page sizes.
+* Test printing, can we get it printing with correct margins?
+* Descrip parsing display.
+** Two modes, one with inline form elements, ready to be sent to the server, and the other with rendered text, ready to be printed.
