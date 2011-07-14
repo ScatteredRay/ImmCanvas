@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 # Small script to spawn a test web server.
 require "WEBrick";
 require "webrick/httputils";
