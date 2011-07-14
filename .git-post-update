@@ -1,4 +1,5 @@
 #!/bin/sh
+cd /usr/local/www/dev/ImmCanvas
 git --git-dir /usr/local/www/dev/ImmCanvas/.git --work-tree /usr/local/www/dev/ImmCanvas pull -f
 cp /usr/local/www/dev/ImmCanvas/.git-post-update ~/ImmCanvas.git/hooks/post-update
 chmod +x ~/ImmCanvas.git/hooks/post-update
