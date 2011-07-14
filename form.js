@@ -6,6 +6,10 @@ var PPI = 96.0;
 
 var HalfLineWidthCm = 0.0;
 
+// Impro seems to just assume 8x11, should we do the same, or do something tricky?
+var PageWidth = 8;
+var PageHeight = 11;
+
 function transform_pt_to_px(s)
 {
     return (s / PtPIn) * PPI;
@@ -29,6 +33,12 @@ function transform_point(p)
 function transform_xy(x, y)
 {
     return transform_point({"x" : x, "y" : y});
+}
+
+function resize_canvas(canvas)
+{
+    canvas.width = PageWidth * PPI;
+    canvas.height = PageHeight * PPI;
 }
 
 function draw_line(ctx, x1, y1, x2, y2) {
